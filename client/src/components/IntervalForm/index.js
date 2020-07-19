@@ -1,44 +1,62 @@
 import React, { useState, useEffect } from "react";
+import intervals from "../../Music/Intervals";
+import { FormBtn } from "../Form";
+import Question from "../Question";
 
 function IntervalForm() {
     const [formObject, setFormObject] = useState({})
-  
+
     useEffect(() => {
+        initialState();
     }, [])
+
+    function initialState() {
+        setFormObject((formObject) => ({...formObject, answer: intervals[Math.floor(Math.random()*intervals.length)].name}));
+    }
   
     // Handles updating component state when the user types into the input field
-    function handleInputChange(event) {
-      const { name, value } = event.target;
-      setFormObject({...formObject, [name]: value})
-    };
-
     
     function handleChange(event) {
-        console.log(event.target.value)
         const { value } = event.target;
-        setFormObject({...formObject, interval: value})
+        setFormObject((formObject) => ({...formObject, interval: value}));
     }
 
     function handleSubmit(event) {
-        alert('Your favorite flavor is: ' + formObject.interval);
+        console.log(formObject.answer + "===" + formObject.interval)
+        if (formObject.answer === formObject.interval) {
+            alert("correct");
+        };
+        setFormObject((formObject) => ({...formObject, answer: intervals[Math.floor(Math.random()*intervals.length)].name}));
         event.preventDefault();
     }
-  
     
     return (
-        <form onSubmit={handleSubmit}>
-        <label>
-            Pick your favorite flavor:
-            <select className="browser-default" value={formObject.value} onChange={handleChange}>
-                <option disabled defaultValue>Choose your option</option>
-                <option value="jojoo!">Grapefruit</option>
-                <option value="jojoo!">Lime</option>
-                <option value="jojoo!">Coconut</option>
-                <option value="jojoo!">Mango</option>
-            </select>
-        </label>
-        <input type="submit" value="Submit" />
-        </form>
+        <div>
+            
+            <Question />
+            <p>{formObject.answer}</p>
+
+            <form onSubmit={handleSubmit}>
+            <label>
+                Choose Your Interval:
+                <select className="browser-default" value={formObject.value} onChange={handleChange}>
+                    <option disabled selected>Choose Your Interval</option>
+
+                    {intervals.map(interval => (
+                        <option value={interval.name}>
+                            {interval.name}
+                        </option>
+                    ))}
+                    
+                </select>
+            </label>
+
+            <FormBtn type="submit" value="Submit" disabled={!(formObject.interval )}>
+                Submit Answer
+            </FormBtn>
+
+            </form>
+        </div>
     );
 }
   

@@ -1,4 +1,4 @@
-let intervals = [
+const intervals = [
     {
         name: "Perfect Unison",
         sound: "PERFECT 0"
@@ -12,7 +12,7 @@ let intervals = [
         sound: "MAJOR 2"
     },
     {
-        name: "Minor third",
+        name: "Minor Third",
         sound: "MINOR 3"
     },
     {
@@ -20,8 +20,12 @@ let intervals = [
         sound: "MAJOR 3"
     },
     {
-        name: "Perfect 4th",
+        name: "Perfect Fourth",
         sound: "PERFECT 4"
+    },
+    {
+        name: "Perfect Fifth",
+        sound: "PERFECT 5"
     },
     {
         name: "Tritone",
@@ -32,11 +36,21 @@ let intervals = [
         sound: "MINOR 6"
     },
     {
+        name: "Major Sixth",
+        sound: "MAJOR 7"
+    },
+    {
+        name: "Minor Seventh",
+        sound: "MAJOR 7"
+    },
+    {
         name: "Major Seventh",
         sound: "MAJOR 7"
     },
     {
-        name: "PERFECT OCTAVE",
+        name: "Perfect Octave",
         sound: "OCTAVE"
     }
-]
+];
+
+export default intervals;

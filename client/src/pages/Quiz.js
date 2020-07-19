@@ -4,24 +4,17 @@ import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
-import intervals from "../Music/Intervals"
-import IntervalForm from "../components/IntervalForm"
+import intervals from "../Music/Intervals";
+import IntervalForm from "../components/IntervalForm";
 
-function Books() {
+function Quiz() {
   // Setting our component's initial state
   const [books, setBooks] = useState([])
   const [formObject, setFormObject] = useState({})
 
   // Load all books and store them with setBooks
   useEffect(() => {
-      // loadQuestions
   }, [])
-
-  // Handles updating component state when the user types into the input field
-  function handleInputChange(event) {
-    const { name, value } = event.target;
-    setFormObject({...formObject, [name]: value})
-  };
 
   // When the form is submitted, use the API.saveBook method to save the book data
   // Then reload books from the database
@@ -45,14 +38,9 @@ function Books() {
             <Jumbotron>
               <h1>What Is This Interval?</h1>
             </Jumbotron>
-            
+
             <IntervalForm />
 
-            <FormBtn
-            disabled={!(formObject.author && formObject.title)}
-            onClick={handleFormSubmit}>
-            Submit Answer
-            </FormBtn>
           </Col>
 
           <Col size="md-6 sm-12">
@@ -81,4 +69,4 @@ function Books() {
   }
 
 
-export default Books;
+export default Quiz;
