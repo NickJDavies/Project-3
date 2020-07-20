@@ -1,10 +1,9 @@
 import React from "react";
 
 function Question(props) {
-  
+  console.log(props)
   return (
-    // <h1 value={props.answer}>{props.answer}</h1>
-    <h1>HIHIIH</h1>
+    <button value={props.answer}>{props.answer}</button>
   );
 }
 

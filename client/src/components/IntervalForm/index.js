@@ -33,8 +33,7 @@ function IntervalForm() {
     return (
         <div>
             
-            <Question />
-            <p>{formObject.answer}</p>
+            <Question answer={formObject.answer} />
 
             <form onSubmit={handleSubmit}>
             <label>
