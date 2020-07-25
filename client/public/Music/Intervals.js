@@ -1,55 +1,55 @@
 const intervals = [
     {
         name: "Perfect Unison",
-        semiTones: "0"
+        sound: "PERFECT 0"
     },
     {
         name: "Minor Second",
-        semiTones: "1"
+        sound: "MINOR 2"
     },
     {
         name: "Major Second",
-        semiTones: "2"
+        sound: "MAJOR 2"
     },
     {
         name: "Minor Third",
-        semiTones: "3"
+        sound: "MINOR 3"
     },
     {
         name: "Major Third",
-        semiTones: "4"
+        sound: "MAJOR 3"
     },
     {
         name: "Perfect Fourth",
-        semiTones: "5"
-    },
-    {
-        name: "Tritone",
-        semiTones: "6"
+        sound: "PERFECT 4"
     },
     {
         name: "Perfect Fifth",
-        semiTones: "7"
+        sound: "PERFECT 5"
+    },
+    {
+        name: "Tritone",
+        sound: "DEVIL'S INTERVAL"
     },
     {
         name: "Minor Sixth",
-        semiTones: "8"
+        sound: "MINOR 6"
     },
     {
         name: "Major Sixth",
-        semiTones: "9"
+        sound: "MAJOR 7"
     },
     {
         name: "Minor Seventh",
-        semiTones: "10"
+        sound: "MAJOR 7"
     },
     {
         name: "Major Seventh",
-        semiTones: "11"
+        sound: "MAJOR 7"
     },
     {
         name: "Perfect Octave",
-        semiTones: "12"
+        sound: "OCTAVE"
     }
 ];
 

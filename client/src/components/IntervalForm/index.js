@@ -11,7 +11,8 @@ function IntervalForm() {
     }, [])
 
     function initialState() {
-        setFormObject((formObject) => ({...formObject, answer: intervals[Math.floor(Math.random()*intervals.length)].name}));
+        let randomNum = Math.floor(Math.random()*intervals.length);
+        setFormObject((formObject) => ({...formObject, answer: intervals[randomNum].name, answerSemiTones: intervals[randomNum].semiTones}));
     }
   
     // Handles updating component state when the user types into the input field
@@ -22,18 +23,20 @@ function IntervalForm() {
     }
 
     function handleSubmit(event) {
-        console.log(formObject.answer + "===" + formObject.interval)
-        if (formObject.answer === formObject.interval) {
+        if (formObject.answerName === formObject.interval) {
             alert("correct");
+        } else {
+            alert("incorrect");
         };
-        setFormObject((formObject) => ({...formObject, answer: intervals[Math.floor(Math.random()*intervals.length)].name}));
+        let randomNum = Math.floor(Math.random()*intervals.length);
+        setFormObject((formObject) => ({...formObject, answerName: intervals[randomNum].name, answerSemiTones: intervals[randomNum].semiTones}));
         event.preventDefault();
     }
     
     return (
         <div>
             
-            <Question answer={formObject.answer} />
+            <Question answer={formObject.answerSemiTones} />
 
             <form onSubmit={handleSubmit}>
             <label>
