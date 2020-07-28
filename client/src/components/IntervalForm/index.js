@@ -3,7 +3,7 @@ import intervals from "../../Music/Intervals";
 import { FormBtn } from "../Form";
 import Question from "../Question";
 
-function IntervalForm() {
+function IntervalForm(props) {
     const [formObject, setFormObject] = useState({})
 
     useEffect(() => {
@@ -12,7 +12,7 @@ function IntervalForm() {
 
     function initialState() {
         let randomNum = Math.floor(Math.random()*intervals.length);
-        setFormObject((formObject) => ({...formObject, answer: intervals[randomNum].name, answerSemiTones: intervals[randomNum].semiTones}));
+        setFormObject((formObject) => ({...formObject, answerName: intervals[randomNum].name, answerSemiTones: intervals[randomNum].semiTones}));
     }
   
     // Handles updating component state when the user types into the input field
@@ -22,11 +22,15 @@ function IntervalForm() {
         setFormObject((formObject) => ({...formObject, interval: value}));
     }
 
+    const handleAnswer = props.handleAnswerr;
+
     function handleSubmit(event) {
         if (formObject.answerName === formObject.interval) {
             alert("correct");
+            handleAnswer(formObject.answerName, true);
         } else {
             alert("incorrect");
+            handleAnswer(formObject.answerName, false);
         };
         let randomNum = Math.floor(Math.random()*intervals.length);
         setFormObject((formObject) => ({...formObject, answerName: intervals[randomNum].name, answerSemiTones: intervals[randomNum].semiTones}));
