@@ -19,6 +19,6 @@ export default {
   },
   // Saves a user to the database
   updateUser: async function(userData) {
-    return axios.put("/api/user/5f1fbbb57fe9633060a8cdc8", userData);
+    return axios.put("/api/user/5f1fe9f54acd921ec085575b", userData);
   }
 };

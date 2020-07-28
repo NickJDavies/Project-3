@@ -7,7 +7,6 @@ import { Input, TextArea, FormBtn } from "../components/Form";
 import intervals from "../Music/Intervals";
 import IntervalForm from "../components/IntervalForm";
 import API from "../utils/API";
-// import IntervalSwitch from "../utils/SwitchCase";
 
 function Quiz() {
   // Setting our component's initial state
@@ -19,8 +18,8 @@ function Quiz() {
   }, [])
 
   async function startScore() {
-    let user = await API.getUser("5f1fbbb57fe9633060a8cdc8");
-    console.log(user)
+    let user = await API.getUser("5f1fe9f54acd921ec085575b");
+    let scores = Object.values(user.data.statistics.intervalScores);
     setScore(() => ({
       correctCurrent: 0,
       totalCurrent: 0,
@@ -32,51 +31,39 @@ function Quiz() {
       mostRight: null,
       leastRight: null,
       percentageCorrect: "10%",
-      intervalScores: {
-        PerfectUnison: { correct: 0 , total:0},
-        MinorSecond: { correct:0, total:0 },
-        MajorSecond: { correct:0, total:0 },
-        MinorThird: { correct:0, total:0 },
-        MajorThird: { correct:0, total:0 },
-        PerfectFourth: { correct:0, total:0 },
-        Tritone: { correct:0, total:0 },
-        PerfectFifth: { correct:0, total:0 },
-        MinorSixth: { correct:0, total:0 },
-        MajorSixth: { correct:0, total:0 },
-        MinorSeventh: { correct:0, total:0 },
-        MajorSeventh: { correct:0, total:0 },
-        PerfectOctave: { correct:0, total:0 }
-      }
+      // index is number of semi-tones
+      intervalScores: scores
     }));
     alert("Ready!");
   }
 
   //useranswer is what the user chose, correct is whether or not it is correct.
-  const handleAnswer = (userAnswer, correct) => {
-    userAnswer = userAnswer.replace(' ','');
-    // console.log(IntervalSwitch(userAnswer));
+  const handleAnswer = (answerSemiTones, correct) => {
+    let intervalScores = score.intervalScores;
+    intervalScores[answerSemiTones] = { correct: intervalScores[answerSemiTones].correct + correct, total: intervalScores[answerSemiTones].total + 1 }
+    
     if (correct) {
-      setScore(() => ({...score,
+      setScore(() => ({...score, ...intervalScores,
         correctCurrent: score.correctCurrent + 1,
         totalCurrent: score.totalCurrent + 1,
         correct: score.correct + 1,
         total: score.total + 1,
-        intervalScores: {
-
-        }
+        intervalScores
       }));
     }
     else {
       setScore(() => ({...score,
         totalCurrent: score.totalCurrent + 1,
-        total: score.total + 1
+        total: score.total + 1,
+        intervalScores
       }));
     };
 
     API.updateUser({
       statistics: {
         total: score.total + 1,
-        correct: score.correct + correct
+        correct: score.correct + correct,
+        intervalScores: intervalScores
       }
     });
 
@@ -103,16 +90,14 @@ function Quiz() {
               <li>Correct: {score.correctCurrent}</li>
               <li>Total: {score.totalCurrent}</li>
               <li>percentage correct: {Math.floor(score.correctCurrent / (score.totalCurrent) *100)}%</li>
-              <li>Most correct: {score.mostRightCurrent}</li>
-              <li>Most total: {score.leastRightCurrent}</li>
             </ul>
             <h2>All-Time:</h2>
             <ul>
               <li>Correct: {score.correct}</li>
               <li>Total: {score.total}</li>
               <li>percentage correct: {Math.floor(score.correct / (score.total) *100)}%</li>
-              <li>Most correct: {score.mostRight}</li>
-              <li>Most total: {score.leastRight}</li>
+              <li>Most total: {JSON.stringify(score.intervalScores)}</li>
+              <li>Most total: {JSON.stringify(score.intervalScores)}</li>
             </ul>
           </Col>
         </Row>

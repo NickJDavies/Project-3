@@ -17,7 +17,7 @@ module.exports = {
   create: function(req, res) {
     db.User
       .create({
-        name: "Nicholas",
+        name: "Nicholassss",
         password: "12345",
       })
       .then(dbModel => res.json(dbModel))
@@ -25,13 +25,13 @@ module.exports = {
   },
   update: function(req, res) {
     db.User
-      .findOneAndUpdate({ _id: "5f1fbbb57fe9633060a8cdc8" }, req.body)
+      .findOneAndUpdate({ _id: "5f1fe9f54acd921ec085575b" }, req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   remove: function(req, res) {
     db.User
-      .findById({ _id: "5f1fbbb57fe9633060a8cdc8" })
+      .findById({ _id: "5f1fe9f54acd921ec085575b" })
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));

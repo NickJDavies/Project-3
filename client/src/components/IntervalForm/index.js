@@ -27,10 +27,10 @@ function IntervalForm(props) {
     function handleSubmit(event) {
         if (formObject.answerName === formObject.interval) {
             alert("correct");
-            handleAnswer(formObject.answerName, true);
+            handleAnswer(formObject.answerSemiTones, true);
         } else {
             alert("incorrect");
-            handleAnswer(formObject.answerName, false);
+            handleAnswer(formObject.answerSemiTones, false);
         };
         let randomNum = Math.floor(Math.random()*intervals.length);
         setFormObject((formObject) => ({...formObject, answerName: intervals[randomNum].name, answerSemiTones: intervals[randomNum].semiTones}));
