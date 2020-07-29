@@ -9,27 +9,27 @@ import Home from "./pages/Home"
 
 function App() {
   return (
-    <main>
+    <main className="grey lighten-1" style={{height: "100vh"}}>
       <Router>
-        <div className="grey lighten-2">
-        <Nav />
+        <div >
+          <Nav />
 
-        <div className="container">
-          <Switch>
+          <div className="container">
+            <Switch>
 
-            <Route path="/Quiz">
-              <Quiz />
-            </Route>
+              <Route path="/Quiz">
+                <Quiz />
+              </Route>
 
-            <Route path="/">
-              <Home />
-            </Route>
+              <Route path="/">
+                <Home />
+              </Route>
 
-          </Switch>
+            </Switch>
+          </div>
+
         </div>
-
         <Footer />
-        </div>
       </Router>
     </main>
   );
