@@ -9,7 +9,8 @@ import Home from "./pages/Home"
 
 function App() {
   return (
-    <main className="grey lighten-1" style={{height: "100vh"}}>
+    // <main className="" style={{""}}>
+    <main>
       <Router>
         <div >
           <Nav />

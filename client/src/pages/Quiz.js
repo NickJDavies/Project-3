@@ -150,6 +150,7 @@ function Quiz() {
             <Jumbotron>
               <h1>Statistics:</h1>
             </Jumbotron>
+            
             <h2> This session:</h2>
             <ul>
               <li>Correct: {score.correctCurrent}</li>

@@ -16,7 +16,7 @@ function playInterval(e) {
 
 function Question(props) {
   return (
-    <button semitones={props.answer} onClick={playInterval}> Play Interval! </button>
+    <button className="waves-effect waves-light btn indigo accent-5 lighten-1" semitones={props.answer} onClick={playInterval}> Play Interval! </button>
   );
 }
 

@@ -39,6 +39,7 @@ function IntervalForm(props) {
     
     return (
         <div>
+        {/* <div style={{paddingTop: 100}}> */}
             
             <Question answer={formObject.answerSemiTones} />
 
