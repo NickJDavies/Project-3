@@ -11,23 +11,25 @@ function App() {
   return (
     <main>
       <Router>
-
+        <div className="grey lighten-2">
         <Nav />
 
-        <Switch>
+        <div className="container">
+          <Switch>
 
-          <Route path="/Quiz">
-            <Quiz />
-          </Route>
+            <Route path="/Quiz">
+              <Quiz />
+            </Route>
 
-          <Route path="/">
-            <Home />
-          </Route>
+            <Route path="/">
+              <Home />
+            </Route>
 
-        </Switch>
+          </Switch>
+        </div>
 
         <Footer />
-
+        </div>
       </Router>
     </main>
   );

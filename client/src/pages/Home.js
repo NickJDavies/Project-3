@@ -11,14 +11,14 @@ function Quiz() {
     return (
       <Container fluid>
         <Row>
-          <Col size="md-6 sm-12">
+          <Col size="m6 s12">
             <Jumbotron>
               <h1>Click above to Quiz!</h1>
             </Jumbotron>
 
           </Col>
           
-          <Col size="md-6 sm-12">
+          <Col size="m6 s12">
             <Jumbotron>
               <h1>*Users* Statistics:</h1>
             </Jumbotron>

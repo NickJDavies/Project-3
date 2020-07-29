@@ -137,7 +137,7 @@ function Quiz() {
     return (
       <Container fluid>
         <Row>
-          <Col size="md-6 sm-12">
+          <Col size="m6 sm2">
             <Jumbotron>
               <h1>What Is This Interval?</h1>
             </Jumbotron>
@@ -146,7 +146,7 @@ function Quiz() {
 
           </Col>
 
-          <Col size="md-6 sm-12">
+          <Col size="m6 s12">
             <Jumbotron>
               <h1>Statistics:</h1>
             </Jumbotron>
