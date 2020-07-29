@@ -8,7 +8,7 @@ router.route("/")
 
 // Matches with "/api/user"
 router.route("/create")
-  .get(userController.create);
+  .post(userController.create);
 
 // "/api/user/delete"
 router

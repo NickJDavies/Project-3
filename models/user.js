@@ -9,7 +9,8 @@ const userSchema = new Schema({
   statistics: {
     total: { type: Number, default: 0 },
     correct: { type: Number, default: 0 },
-    intervalScores: {
+    intervalScores: [
+      
       // mongoose doesnt make arrays without also giving ids, so this way it works properly, setting the array through quiz.js
       // PerfectUnison: { correct: { type: Number, default: 0 }, total: { type: Number, default: 0 } },
       // MinorSecond: { correct: { type: Number, default: 0 }, total: { type: Number, default: 0 } },
@@ -24,7 +25,7 @@ const userSchema = new Schema({
       // MinorSeventh: { correct: { type: Number, default: 0 }, total: { type: Number, default: 0 } },
       // MajorSeventh: { correct: { type: Number, default: 0 }, total: { type: Number, default: 0 } },
       // PerfectOctave: { correct: { type: Number, default: 0 }, total: { type: Number, default: 0 } }
-    }
+    ]
   }
 });
 

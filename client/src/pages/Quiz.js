@@ -19,59 +19,39 @@ function Quiz() {
 
   async function startScore() {
     let user = await API.getUser("Nicholassss");
-    let scores = Object.values(user.data.statistics.intervalScores);
-    await setScore(() => ({
-      //statistics for this session
-      correctCurrent: 0,
-      totalCurrent: 0,
 
-      //stastics for all time
-      correct: user.data.statistics.correct,
-      total: user.data.statistics.total,
-      
-      // keeps track of the most right and least right intervals, from all time.
-      bestScoreInterval: "unknown",
-      bestScorePercentage: "unknown",
-      worstScoreInterval: "unknown",
-      worstScorePercentage: "unknown",
+    // creates a user if there are none
+    if (!user.data[0]) {
+      await API.createUser();
+      let intervalScoreInitiation = [];
 
-      // index is number of semi-tones
-      intervalScores: scores
-    }));
-    alert("Ready!");
-  }
+      for (let i = 0; i < 13; i++) {
+        intervalScoreInitiation.push({ correct: 0, total: 0 })
+      }
+      await API.updateUser({
+        statistics: {
+          intervalScores: intervalScoreInitiation
+        }
+      });
 
-  //useranswer is what the user chose, correct is whether or not it is correct.
-  const handleAnswer = (answerSemiTones, correct) => {
-    let intervalScores = score.intervalScores;
-    intervalScores[answerSemiTones] = { correct: intervalScores[answerSemiTones].correct + correct, total: intervalScores[answerSemiTones].total + 1 }
-    if (correct) {
-      setScore(() => ({...score, ...intervalScores,
-        correctCurrent: score.correctCurrent + 1,
-        totalCurrent: score.totalCurrent + 1,
-        correct: score.correct + 1,
-        total: score.total + 1,
-        intervalScores
-      }));
+      user = await API.getUser("Nicholassss");
+
     }
-    else {
-      setScore(() => ({...score,
-        totalCurrent: score.totalCurrent + 1,
-        total: score.total + 1,
-        intervalScores
-      }));
-    };
 
-    // maps the elements of the array for the statistics side to display stats
+    let scores = Object.values(user.data[0].statistics.intervalScores);
+
+    // calculates the best and worst intervals    
     let intervalScoreArray = [];
-    for (let i = 0; i < score.intervalScores.length; i++) {
+    console.log(user.data[0].statistics)
+    for (let i = 0; i < user.data[0].statistics.intervalScores.length; i++) {
       let interval = intervals[i].name;
-      let percentage = score.intervalScores[i].correct / score.intervalScores[i].total * 100;
+      let percentage = user.data[0].statistics.intervalScores[i].correct / user.data[0].statistics.intervalScores[i].total * 100;
       intervalScoreArray.push([interval, percentage])
     }
 
-    let highestScore = ["unknown", -1];
-    let lowestScore = ["unknown", 11];
+    let highestScore = ["unknown", 0];
+    let lowestScore = ["unknown", 100];
+    console.log(intervalScoreArray)
 
     for (let i = 0; i < intervalScoreArray.length; i++) {
       let interval = intervalScoreArray[i];
@@ -83,7 +63,61 @@ function Quiz() {
       }
     }
 
-    setScore(() => ({...score,
+    await setScore(() => ({
+      //statistics for this session
+      correctCurrent: 0,
+      totalCurrent: 0,
+
+      //stastics for all time
+      correct: user.data[0].statistics.correct,
+      total: user.data[0].statistics.total,
+      
+      // keeps track of the most right and least right intervals, from all time.
+      bestScoreInterval: highestScore[0],
+      bestScorePercentage: highestScore[1],
+      worstScoreInterval: lowestScore[0],
+      worstScorePercentage: lowestScore[1],
+
+      // index is number of semi-tones
+      intervalScores: scores
+    }));
+    console.log(score)
+    alert("Ready!");
+  }
+
+  //useranswer is what the user chose, correct is whether or not it is correct.
+  const handleAnswer = async (answerSemiTones, correct) => {
+    let intervalScores = score.intervalScores;
+    intervalScores[answerSemiTones] = { correct: intervalScores[answerSemiTones].correct + correct, total: intervalScores[answerSemiTones].total + 1 }
+
+    // maps the elements of the array for the statistics side to display stats
+    let intervalScoreArray = [];
+    for (let i = 0; i < score.intervalScores.length; i++) {
+      let interval = intervals[i].name;
+      let percentage = score.intervalScores[i].correct / score.intervalScores[i].total * 100;
+      intervalScoreArray.push([interval, percentage])
+    }
+
+    let highestScore = ["unknown", 0];
+    let lowestScore = ["unknown", 100];
+
+    // 
+    for (let i = 0; i < intervalScoreArray.length; i++) {
+      let interval = intervalScoreArray[i];
+      if (interval[1] > -1 && interval[1] > highestScore[1]) {
+        highestScore = interval;
+      }
+      else if (interval[1] > -1 && interval[1] < lowestScore[1]) {
+        lowestScore = interval;
+      }
+    }
+
+    //correct is a boolean
+    setScore(() => ({...score, ...intervalScores,
+      correctCurrent: score.correctCurrent + correct,
+      totalCurrent: score.totalCurrent + 1,
+      correct: score.correct + correct,
+      total: score.total + 1,
       bestScoreInterval: highestScore[0],
       bestScorePercentage: highestScore[1],
       worstScoreInterval: lowestScore[0],
@@ -127,8 +161,8 @@ function Quiz() {
               <li>Correct: {score.correct}</li>
               <li>Total: {score.total}</li>
               <li>percentage correct: {Math.floor(score.correct / (score.total) *100)}%</li>
-              <li>Best Interval: {score.bestScoreInterval} --- {score.bestScorePercentage}% success rate</li>
-              <li>Worst Interval: {score.worstScoreInterval} --- {score.worstScorePercentage}% success rate</li>
+              <li>Best Interval: <strong> {score.bestScoreInterval} </strong> --- {Math.floor(score.bestScorePercentage)}% success rate</li>
+              <li>Worst Interval: <strong> {score.worstScoreInterval} </strong> --- {Math.floor(score.worstScorePercentage)}% success rate</li>
             </ul>
           </Col>
         </Row>
