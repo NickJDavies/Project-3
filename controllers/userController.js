@@ -1,5 +1,6 @@
 const db = require("../models");
 
+// Currently only one user is being updated and used.
 // Defining methods for the userController
 module.exports = {
   findAll: function(req, res) {
@@ -10,7 +11,7 @@ module.exports = {
 },
   findById: function(req, res) {
     db.User
-      .findById(req.params.id)
+      .find({ name: "Nicholassss" })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
@@ -25,13 +26,13 @@ module.exports = {
   },
   update: function(req, res) {
     db.User
-      .findOneAndUpdate({ _id: "5f1fe9f54acd921ec085575b" }, req.body)
+      .findOneAndUpdate({ name: "Nicholassss" }, req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   remove: function(req, res) {
     db.User
-      .findById({ _id: "5f1fe9f54acd921ec085575b" })
+      .findById({ name: "Nicholassss" })
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));

@@ -18,19 +18,23 @@ function Quiz() {
   }, [])
 
   async function startScore() {
-    let user = await API.getUser("5f1fe9f54acd921ec085575b");
+    let user = await API.getUser("Nicholassss");
     let scores = Object.values(user.data.statistics.intervalScores);
-    setScore(() => ({
+    await setScore(() => ({
+      //statistics for this session
       correctCurrent: 0,
       totalCurrent: 0,
-      mostRightCurrent: null,
-      leastRightCurrent: null,
-      percentageCorrectCurrent: "10%",
+
+      //stastics for all time
       correct: user.data.statistics.correct,
       total: user.data.statistics.total,
-      mostRight: null,
-      leastRight: null,
-      percentageCorrect: "10%",
+      
+      // keeps track of the most right and least right intervals, from all time.
+      bestScoreInterval: "unknown",
+      bestScorePercentage: "unknown",
+      worstScoreInterval: "unknown",
+      worstScorePercentage: "unknown",
+
       // index is number of semi-tones
       intervalScores: scores
     }));
@@ -41,7 +45,6 @@ function Quiz() {
   const handleAnswer = (answerSemiTones, correct) => {
     let intervalScores = score.intervalScores;
     intervalScores[answerSemiTones] = { correct: intervalScores[answerSemiTones].correct + correct, total: intervalScores[answerSemiTones].total + 1 }
-    
     if (correct) {
       setScore(() => ({...score, ...intervalScores,
         correctCurrent: score.correctCurrent + 1,
@@ -59,6 +62,34 @@ function Quiz() {
       }));
     };
 
+    // maps the elements of the array for the statistics side to display stats
+    let intervalScoreArray = [];
+    for (let i = 0; i < score.intervalScores.length; i++) {
+      let interval = intervals[i].name;
+      let percentage = score.intervalScores[i].correct / score.intervalScores[i].total * 100;
+      intervalScoreArray.push([interval, percentage])
+    }
+
+    let highestScore = ["unknown", -1];
+    let lowestScore = ["unknown", 11];
+
+    for (let i = 0; i < intervalScoreArray.length; i++) {
+      let interval = intervalScoreArray[i];
+      if (interval[1] > -1 && interval[1] > highestScore[1]) {
+        highestScore = interval;
+      }
+      else if (interval[1] > -1 && interval[1] < lowestScore[1]) {
+        lowestScore = interval;
+      }
+    }
+
+    setScore(() => ({...score,
+      bestScoreInterval: highestScore[0],
+      bestScorePercentage: highestScore[1],
+      worstScoreInterval: lowestScore[0],
+      worstScorePercentage: lowestScore[1]
+    }));
+
     API.updateUser({
       statistics: {
         total: score.total + 1,
@@ -72,7 +103,7 @@ function Quiz() {
     return (
       <Container fluid>
         <Row>
-          <Col size="md-6">
+          <Col size="md-6 sm-12">
             <Jumbotron>
               <h1>What Is This Interval?</h1>
             </Jumbotron>
@@ -96,8 +127,8 @@ function Quiz() {
               <li>Correct: {score.correct}</li>
               <li>Total: {score.total}</li>
               <li>percentage correct: {Math.floor(score.correct / (score.total) *100)}%</li>
-              <li>Most total: {JSON.stringify(score.intervalScores)}</li>
-              <li>Most total: {JSON.stringify(score.intervalScores)}</li>
+              <li>Best Interval: {score.bestScoreInterval} --- {score.bestScorePercentage}% success rate</li>
+              <li>Worst Interval: {score.worstScoreInterval} --- {score.worstScorePercentage}% success rate</li>
             </ul>
           </Col>
         </Row>
