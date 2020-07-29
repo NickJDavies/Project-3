@@ -9,8 +9,7 @@ import Home from "./pages/Home"
 
 function App() {
   return (
-    // <main className="" style={{""}}>
-    <main>
+    <main className="" style={{paddingBottom: "20vh"}}>
       <Router>
         <div >
           <Nav />
