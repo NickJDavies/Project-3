@@ -12,7 +12,7 @@ function Quiz() {
       <Container fluid>
         <Row>
             <Jumbotron>
-              <h1>To Start:</h1>
+              <h1>Train Your Pitch!</h1>
             </Jumbotron>
           <Col size="m6 s12">
             <h2>
