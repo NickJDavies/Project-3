@@ -22,9 +22,9 @@ function IntervalForm(props) {
         setFormObject((formObject) => ({...formObject, interval: value}));
     }
 
-    const handleAnswer = props.handleAnswerr;
+    const handleAnswer = props.handleAnswer;
 
-    function handleSubmit(event) {
+    const handleSubmit = (event) => {
         if (formObject.answerName === formObject.interval) {
             alert("correct");
             handleAnswer(formObject.answerSemiTones, true);
@@ -34,12 +34,12 @@ function IntervalForm(props) {
         };
         let randomNum = Math.floor(Math.random()*intervals.length);
         setFormObject((formObject) => ({...formObject, answerName: intervals[randomNum].name, answerSemiTones: intervals[randomNum].semiTones}));
+        
         event.preventDefault();
     }
     
     return (
         <div>
-        {/* <div style={{paddingTop: 100}}> */}
             
             <Question answer={formObject.answerSemiTones} />
 
@@ -58,7 +58,7 @@ function IntervalForm(props) {
                 </select>
             </label>
 
-            <FormBtn type="submit" value="Submit" disabled={!(formObject.interval )}>
+            <FormBtn type="submit" value="Submit" disabled={!( formObject.interval )}>
                 Submit Answer
             </FormBtn>
 

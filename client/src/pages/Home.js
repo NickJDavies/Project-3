@@ -11,17 +11,26 @@ function Quiz() {
     return (
       <Container fluid>
         <Row>
-          <Col size="m6 s12">
             <Jumbotron>
-              <h1>Click above to Quiz!</h1>
+              <h1>To Start:</h1>
             </Jumbotron>
+          <Col size="m6 s12">
+            <h2>
+              Log in
+            </h2>
+            <Input placeholder="Name"/>
+            <Input placeholder="Password"/>
+            <FormBtn>Log In</FormBtn>
 
           </Col>
           
           <Col size="m6 s12">
-            <Jumbotron>
-              <h1>*Users* Statistics:</h1>
-            </Jumbotron>
+            <h2>
+              Create User
+              </h2>
+            <Input placeholder="Name"/>
+            <Input placeholder="Password"/>
+            <FormBtn> Create User </FormBtn>
           </Col>
         </Row>
       </Container>

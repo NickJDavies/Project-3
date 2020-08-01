@@ -42,7 +42,6 @@ function Quiz() {
 
     // calculates the best and worst intervals    
     let intervalScoreArray = [];
-    console.log(user.data[0].statistics)
     for (let i = 0; i < user.data[0].statistics.intervalScores.length; i++) {
       let interval = intervals[i].name;
       let percentage = user.data[0].statistics.intervalScores[i].correct / user.data[0].statistics.intervalScores[i].total * 100;
@@ -50,8 +49,7 @@ function Quiz() {
     }
 
     let highestScore = ["unknown", 0];
-    let lowestScore = ["unknown", 100];
-    console.log(intervalScoreArray)
+    let lowestScore = ["unknown", 101];
 
     for (let i = 0; i < intervalScoreArray.length; i++) {
       let interval = intervalScoreArray[i];
@@ -81,8 +79,11 @@ function Quiz() {
       // index is number of semi-tones
       intervalScores: scores
     }));
-    console.log(score)
-    alert("Ready!");
+  }
+
+  const resetUser = async () => {
+    await API.deleteUser();
+    startScore();
   }
 
   //useranswer is what the user chose, correct is whether or not it is correct.
@@ -101,7 +102,7 @@ function Quiz() {
     let highestScore = ["unknown", 0];
     let lowestScore = ["unknown", 100];
 
-    // 
+    // finds highest and lowest scores
     for (let i = 0; i < intervalScoreArray.length; i++) {
       let interval = intervalScoreArray[i];
       if (interval[1] > -1 && interval[1] > highestScore[1]) {
@@ -131,7 +132,6 @@ function Quiz() {
         intervalScores: intervalScores
       }
     });
-
   }
 
     return (
@@ -142,7 +142,7 @@ function Quiz() {
               <h1>What Is This Interval?</h1>
             </Jumbotron>
 
-            <IntervalForm handleAnswerr={handleAnswer}/>
+            <IntervalForm handleAnswer={handleAnswer}/>
 
           </Col>
 
@@ -150,7 +150,8 @@ function Quiz() {
             <Jumbotron>
               <h1>Statistics:</h1>
             </Jumbotron>
-            
+
+            {/* Should be another class below, try to fix */}
             <h2> This session:</h2>
             <ul>
               <li>Correct: {score.correctCurrent}</li>
@@ -165,6 +166,10 @@ function Quiz() {
               <li>Best Interval: <strong> {score.bestScoreInterval} </strong> --- {Math.floor(score.bestScorePercentage)}% success rate</li>
               <li>Worst Interval: <strong> {score.worstScoreInterval} </strong> --- {Math.floor(score.worstScorePercentage)}% success rate</li>
             </ul>
+            
+            <button className="waves-light btn indigo accent-5 lighten-1" onClick={resetUser}>
+              Reset User
+            </button>
           </Col>
         </Row>
       </Container>

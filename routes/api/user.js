@@ -13,7 +13,7 @@ router.route("/create")
 // "/api/user/delete"
 router
   .route("/delete")
-  .get(userController.deleteAll);
+  .delete(userController.deleteAll);
 
 // Matches with "/api/user/:id"
 router

@@ -2,10 +2,11 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Quiz from "./pages/Quiz";
 // import Detail from "./pages/Detail";
-// import NoMatch from "./pages/NoMatch";
+import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer"
 import Home from "./pages/Home"
+import Detail from "./pages/Detail";
 
 function App() {
   return (
@@ -19,6 +20,10 @@ function App() {
 
               <Route path="/Quiz">
                 <Quiz />
+              </Route>
+
+              <Route path="/Detail">
+                <Detail />
               </Route>
 
               <Route path="/">

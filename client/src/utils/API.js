@@ -24,5 +24,8 @@ export default {
   // Saves a user to the database
   createUser: async function(userData) {
     return axios.post("/api/user/create", userData);
+  },
+  deleteUser: async function(userData) {
+    return axios.delete("/api/user/delete", userData)
   }
 };
